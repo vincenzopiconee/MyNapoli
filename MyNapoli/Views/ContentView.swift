@@ -14,10 +14,10 @@ struct ContentView: View {
                 HomeView()
             }
             Tab("Lines", systemImage: "bus") {
-                HomeView()
+                LinesView()
             }
             Tab("Stops", systemImage: "figure.wave") {
-                HomeView()
+                StopsView()
             }
         }
     }
