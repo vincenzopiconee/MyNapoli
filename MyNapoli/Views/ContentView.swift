@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @AppStorage("isWelcomeSheetShowing") var isWelcomeSheetShowing: Bool = true
+    
     var body: some View {
+        
         TabView {
             Tab("Home", systemImage: "house") {
                 HomeView()
@@ -19,6 +23,9 @@ struct ContentView: View {
             Tab("Stops", systemImage: "figure.wave") {
                 StopsView()
             }
+        }
+        .sheet(isPresented: $isWelcomeSheetShowing) {
+            WelcomeView(isOnboardingComplete: $isWelcomeSheetShowing)
         }
     }
 }

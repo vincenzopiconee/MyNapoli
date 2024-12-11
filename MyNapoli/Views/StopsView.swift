@@ -6,10 +6,26 @@
 //
 
 import SwiftUI
+import SwiftData
+import MapKit
 
 struct StopsView: View {
+    
+    @State var position: MapCameraPosition = .userLocation(fallback: .automatic)
+    
+    @Query var stops: [Stop]
+    
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Map(position: $position) {
+            UserAnnotation()
+        }
+        .mapStyle(.hybrid(elevation: .realistic))
+        .mapControls {
+            MapUserLocationButton()
+        }
+        
+        
     }
 }
 
