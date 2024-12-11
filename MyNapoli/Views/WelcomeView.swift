@@ -51,6 +51,8 @@ struct WelcomeView: View {
             } else {
                 Button(action: {
                     isOnboardingComplete.toggle()
+                    saveStopsToContainer()
+                    
                 }, label: {
                     Text("Continue")
                         .font(.title3)
@@ -66,6 +68,22 @@ struct WelcomeView: View {
         .onAppear {
             UIPageControl.appearance().currentPageIndicatorTintColor = .label
             UIPageControl.appearance().pageIndicatorTintColor = .secondaryLabel
+        }
+    }
+    
+    func saveStopsToContainer() {
+        
+        let stops = loadStops(fromFile: "stops")
+        
+        for stop in stops {
+            modelContext.insert(stop)
+        }
+        
+        do {
+            try modelContext.save()
+            print("Tutti i dati sono stati salvati con successo.")
+        } catch {
+            print("Errore durante il salvataggio: \(error)")
         }
     }
 }
