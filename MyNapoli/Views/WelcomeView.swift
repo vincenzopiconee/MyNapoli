@@ -52,6 +52,7 @@ struct WelcomeView: View {
                 Button(action: {
                     isOnboardingComplete.toggle()
                     saveStopsToContainer()
+                    saveRoutesToContainer()
                     
                 }, label: {
                     Text("Continue")
@@ -81,10 +82,27 @@ struct WelcomeView: View {
         
         do {
             try modelContext.save()
-            print("Tutti i dati sono stati salvati con successo.")
+            print("Tutti i dati delle fermate sono stati salvati con successo.")
         } catch {
             print("Errore durante il salvataggio: \(error)")
         }
+    }
+    
+    func saveRoutesToContainer() {
+        
+        let routes = loadRoutes(fromFile: "routes")
+        
+        for route in routes {
+            modelContext.insert(route)
+        }
+        
+        do {
+            try modelContext.save()
+            print("Tutti i dati delle linee sono stati salvati con successo.")
+        } catch {
+            print("Errore durante il salvataggio: \(error)")
+        }
+        
     }
 }
 

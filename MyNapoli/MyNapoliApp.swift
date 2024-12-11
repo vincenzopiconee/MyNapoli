@@ -14,7 +14,7 @@ struct MyNapoliApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .modelContainer(for: [Stop.self])
+                .modelContainer(for: [Stop.self, Route.self])
                 
         }
     }
