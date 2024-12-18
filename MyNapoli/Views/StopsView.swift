@@ -14,41 +14,74 @@ struct StopsView: View {
     
     @Query private var stops: [Stop]
     
+    @State private var selectedStop: Stop?
+    
+    @State private var searchText: String = ""
+    
+    @State private var showSearch: Bool = false
+    
     var body: some View {
-        Map(position: $position) {
-            // Aggiungi marker 3D per ogni fermata
-            ForEach(stops, id: \.stopID) { stop in
-                Annotation(
-                    stop.stopName, // Nome fermata per identificare l'annotazione
-                    coordinate: CLLocationCoordinate2D(latitude: stop.stopLat, longitude: stop.stopLon)
-                ) {
-                    // Contenuto del marker
-                    VStack {
-                        Image(systemName: "mappin.circle.fill")
-                            .font(.title)
-                            .foregroundStyle(.blue, .white)
+        NavigationStack {
+            ZStack {
+                Map(position: $position) {
+                    // Aggiungi marker 3D per ogni fermata
+                    ForEach(stops, id: \.stopID) { stop in
                         
-                        Text(stop.stopName)
-                            .font(.caption)
-                            .padding(4)
-                            .background(Color.white.opacity(0.7))
-                            .cornerRadius(4)
+                        Annotation(
+                            stop.stopName, // Nome fermata per identificare l'annotazione
+                            coordinate: CLLocationCoordinate2D(latitude: stop.stopLat, longitude: stop.stopLon)
+                        ) {
+                            // Contenuto del marker
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(Color.blue)
+                                Image(systemName: "bus.fill")
+                                    .font(.callout)
+                                    .foregroundStyle(.black, .white)
+                                
+                            }
+                            .onTapGesture {
+                                withAnimation {
+                                    selectedStop = stop
+                                }
+                            }
+                            
+                        }
+                        
                     }
-                    .accessibilityElement()
-                    .accessibilityLabel("\(stop.stopName)")
-                    .accessibilityHint("Fermata con latitudine \(stop.stopLat) e longitudine \(stop.stopLon)")
+                    
+                    UserAnnotation()
                 }
-                .annotationTitles(.automatic) // Mostra automaticamente il nome fermata durante l'interazione
+                .mapStyle(.hybrid(elevation: .realistic))
+                .mapControls {
+                    MapUserLocationButton()
+                    MapCompass() // Aggiunge una bussola alla mappa
+                    MapPitchToggle() // Consente di regolare l'angolo della mappa in 3D
+                }
+                
+                
+                if let stop = selectedStop {
+                    VStack {
+                        Spacer()
+                        
+                        StopDetailsCard(stopName: stop.stopName, stopLat: stop.stopLat, stopLon: stop.stopLon) {
+                            
+                            withAnimation {
+                                selectedStop = nil
+                            }
+                        }
+                        .padding(.bottom)
+                        
+                    }
+                    
+                }
+                
             }
-            
-            UserAnnotation()
+            .navigationTitle("Stops")
+            .navigationBarTitleDisplayMode(.inline)
+            .searchable(text: $searchText, isPresented: $showSearch)
         }
-        .mapStyle(.standard(elevation: .realistic))
-        .mapControls {
-            MapUserLocationButton()
-            MapCompass() // Aggiunge una bussola alla mappa
-            MapPitchToggle() // Consente di regolare l'angolo della mappa in 3D
-        }
+        
     }
 }
 

@@ -15,11 +15,11 @@ struct WelcomeView: View {
     @Binding var isOnboardingComplete: Bool
     @State private var currentPage = 0
     
-    let titles = ["Welcome", "Let's get started", "Please wait"]
+    let titles = ["Welcome", "Get Started", "Enjoy MyNapoli"]
     let descriptions = [
-        "Here you can find all the information you need about MyNapoli and its features and functionalities",
-        "Now you can start using MyNapoli and enjoy its features and functionalities :)",
-        "Please wait while we load all the information you need about MyNapoli and its features and functionalities :) :) :)"
+        "Find all the details you need to navigate Napoli’s public transport system effortlessly",
+        "Explore features designed to make your travel in Napoli easy and enjoyable",
+        "Access real-time updates and plan your trips with confidence and convenience"
     ]
     
     var body: some View {

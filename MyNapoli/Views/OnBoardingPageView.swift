@@ -13,20 +13,19 @@ struct OnBoardingPageView: View {
     var description: String
     
     var body: some View {
-        VStack {
+        VStack (spacing: 100){
             Text(title)
                 .font(.title)
                 .fontWeight(.bold)
-                .padding(.vertical, 50)
             Text(description)
                 .padding()
                 .multilineTextAlignment(.center)
-                .padding(.vertical, 50)
+                .padding()
             
         }
     }
 }
 
 #Preview {
-    OnBoardingPageView(title: "Welcome", description: "here to explore MyNapoli :)")
+    OnBoardingPageView(title: "Welcome", description: "Find all the details you need to navigate Napoli’s public transport system effortlessly")
 }

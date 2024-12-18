@@ -9,23 +9,24 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @AppStorage("isWelcomeSheetShowing") var isWelcomeSheetShowing: Bool = true
+    @AppStorage("isWelcomeSheetShowing") var isWelcomeShowing: Bool = true
     
     var body: some View {
         
-        TabView {
-            Tab("Home", systemImage: "house") {
-                HomeView()
+        if isWelcomeShowing {
+            WelcomeView(isOnboardingComplete: $isWelcomeShowing)
+        } else {
+            TabView {
+                Tab("Home", systemImage: "house") {
+                    HomeView()
+                }
+                Tab("Lines", systemImage: "bus") {
+                    LinesView()
+                }
+                Tab("Stops", systemImage: "figure.wave") {
+                    StopsView()
+                }
             }
-            Tab("Lines", systemImage: "bus") {
-                LinesView()
-            }
-            Tab("Stops", systemImage: "figure.wave") {
-                StopsView()
-            }
-        }
-        .sheet(isPresented: $isWelcomeSheetShowing) {
-            WelcomeView(isOnboardingComplete: $isWelcomeSheetShowing)
         }
     }
 }

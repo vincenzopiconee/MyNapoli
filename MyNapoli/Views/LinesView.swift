@@ -13,7 +13,7 @@ struct LinesView: View {
     @Query private var routes: [Route]
     
     // Stato per il tipo di percorso selezionato nel picker
-    @State private var selectedType: Int = 1
+    @State private var selectedType: Int = 3
     
     // Stato per il testo della ricerca
     @State private var searchText: String = ""
@@ -57,7 +57,8 @@ struct LinesView: View {
                 }
                 .searchable(text: $searchText) // Aggiunge la barra di ricerca
             }
-            .navigationTitle("Routes") // Aggiunge un titolo alla navigazione
+            .navigationTitle("Routes")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
