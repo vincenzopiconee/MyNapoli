@@ -26,7 +26,7 @@ struct LinesDetailView: View {
                     
                     ZStack {
                         Circle()
-                            .fill(Color.blue)
+                            .fill(Color.orange)
                             .frame(width: 60, height: 60)
                         Image(systemName: "exclamationmark.triangle")
                             .resizable()
