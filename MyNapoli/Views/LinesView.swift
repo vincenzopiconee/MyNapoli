@@ -52,8 +52,11 @@ struct LinesView: View {
 
                 // Lista delle rotte filtrate per tipo e ricerca
                 List(filteredRoutes, id: \.routeID) { route in
-                    Text(route.routeShortName) // Mostra il nome breve della rotta
-                        .font(.headline) // Impostiamo il font per ogni elemento della lista
+                    NavigationLink(destination: LinesDetailView(route: route)) {
+                        Text(route.routeShortName) // Mostra il nome breve della rotta
+                            .font(.headline) // Impostiamo il font per ogni elemento della lista
+                        
+                    }
                 }
                 .searchable(text: $searchText) // Aggiunge la barra di ricerca
             }

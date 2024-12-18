@@ -6,13 +6,23 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct LinesDetailView: View {
+    
+    let route: Route
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            Map {
+                
+            }
+            .navigationTitle(route.routeShortName)
+            .navigationBarTitleDisplayMode(.inline)
+        }
     }
 }
 
 #Preview {
-    LinesDetailView()
+    LinesDetailView(route: Route(routeID: "1", agencyID: "1", routeShortName: "C16", routeType: 3))
 }
