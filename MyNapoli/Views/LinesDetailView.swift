@@ -14,11 +14,29 @@ struct LinesDetailView: View {
     
     var body: some View {
         NavigationStack {
-            Map {
+            ZStack {
+                Map {
+                    
+                }
+                .navigationTitle(route.routeShortName)
+                .navigationBarTitleDisplayMode(.inline)
                 
+                VStack {
+                    Spacer()
+                    
+                    ZStack {
+                        Circle()
+                            .fill(Color.blue)
+                            .frame(width: 60, height: 60)
+                        Image(systemName: "exclamationmark.triangle")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                    }
+                }
+                .padding()
+                .padding(.leading, 300)
             }
-            .navigationTitle(route.routeShortName)
-            .navigationBarTitleDisplayMode(.inline)
+            
         }
     }
 }
